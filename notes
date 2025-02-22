@@ -409,3 +409,17 @@ pattern matching, offsets
   finding a sequence of bytes in another
 
 maybe I can write the lisp before the dynamic array and all
+
+
+why xxd gives this weird output sometimes?
+  find the exact input for which it gives it
+
+test PB for the whole range of possible inputs
+ok, so it was problem with signed chars
+  what happens if you bitshift signed numbers
+  especially negative numbers?
+
+
+xxd that skips null rows
+  it requires looking forward to work nice 
+    I don't want n empty rows unitl it jumps to next block of data
