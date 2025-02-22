@@ -353,3 +353,59 @@ pbl(0x23 >> 4);
 this might generate mask
 */
 
+
+it would be nice if I had a "struct display"
+
+
+lisp without GC?
+  no eval inside
+  each eval clears the heap
+usage?
+  a shell?
+    for stuff like mon
+      for supporting complex arguments
+      but implementation is completely in c
+
+can later make a lisp with abc gc
+  but maybe inside the vm
+
+how about eval being in a throw-away heap
+but you can explicitly allocate to persistant heap
+how to call this memory management scheme?
+
+everything that the eval produces
+which doesn't end up saved somewhere
+is garbage
+
+where does the result go?
+  nowhere, it just gets printed, then the repl loops
+  it gets printed from the transient heap
+
+
+
+fixed point nums
+  easier to display
+
+trig functions
+
+can write a calculator
+
+does the vm have interrupts?
+first try without
+
+types inside that lisp?
+  sure doozie
+  but first do them in c
+
+(n / a + m / a) != (n + m) / a?
+prove it
+  degenerate case
+  1 / 2 + 1 / 2 = 0
+  (1 + 1) / 2 = 1
+QED
+
+pattern matching, offsets
+  finding constants from other constants
+  finding a sequence of bytes in another
+
+maybe I can write the lisp before the dynamic array and all
