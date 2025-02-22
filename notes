@@ -22,6 +22,7 @@ rename printing procs?
 
 hexdump
 
+
 replicate printing funcitons with printing to string
   s prefix
 
@@ -40,7 +41,17 @@ how about using them as a base for stdout printing funcitons?
       1 to determine whether to write to a string
     and you have a function call
     if it's not inlined it causee more delay
+how about you make a global function pointer
+  and you call it with dummy args if you don't need them
+  or with a union
+  and each fn interprets the union differently
+  or just 2 args
+  each fun ignores the arg it doesn't need
+    union is better for this
+  better to "take what you need" than ignore what you don't
 
+tests 
+  after you have s printing thingies
 
 decimal print
 unsigned
@@ -313,4 +324,32 @@ if they really work, you shouldn't be able to recurse them
   it actually complies
     wait, warnings supressed
       it has no warning even with Wall!
+
+weird dynamic allocation
+
+/*
+enum DynType {
+  INT,
+  DINT, //???
+}
+//^don't you need dynamic allocation for that?
+
+
+typedef struct {
+  int v;
+  int t;
+} Dint;
+
+union {
+}
+*/
+
+/*
+pbl(0x23 >> 0);
+pbl(0x23 >> 1);
+pbl(0x23 >> 2);
+pbl(0x23 >> 3);
+pbl(0x23 >> 4);
+this might generate mask
+*/
 

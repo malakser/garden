@@ -1,29 +1,16 @@
 int putchar(char c);
+int getchar();
 
 
-char a[0xFFFF];
+char heap[0xFFFF];
 
-
-
-/*
-enum DynType {
-  INT,
-  DINT, //???
-}
-//^don't you need dynamic allocation for that?
-
-
-typedef struct {
-  int v;
-  int t;
-} Dint;
-
-union {
-}
-*/
 
 void pc(char c) {
   putchar(c);
+}
+
+int gc() {
+  getchar();
 }
 
 void ps(char* s) {
@@ -58,8 +45,16 @@ void pB(char n) {
 
 void pnB(char* buf, int n) {
   for (int i=0; i<n; i++) {
-    pB(buf[n]);
+    pB(buf[i]);
   }
+}
+
+void pX(int x) {
+  char dg[] = "0123456789ABCDEF";
+  int d = x / 16;
+  int r = x % 16;
+  if (d) pX(d);
+  pc(dg[r]);
 }
 
 /*
@@ -69,17 +64,15 @@ void xxd(char* buf, int len) {
 }
 */
 
+void megadump() {
+  //maximum range to not segfault
+  pnB("aaaa"-8*1024-4, 84*1024);
+}
+
 int main() {
-  pB(17);
+  //megadump();
+  pX(128);
   pc('\n');
 }
 
-/*
-pbl(0x23 >> 0);
-pbl(0x23 >> 1);
-pbl(0x23 >> 2);
-pbl(0x23 >> 3);
-pbl(0x23 >> 4);
-this might generate mask
-*/
 
