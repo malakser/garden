@@ -61,7 +61,7 @@ void pd(int x) {
   char* dg = "0123456789";
   int d = x / 10;
   int r = x % 10;
-  if (d) pX(d);
+  if (d) pd(d);
   pc(dg[r]);
 }
 
@@ -114,6 +114,8 @@ int main() {
   char foo[] = "1234567890abcdefghi";
   foo[10] = 10;
   xxd(foo, slen(foo));
+  pd(1337);
+  pn();
 }
 
 
