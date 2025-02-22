@@ -1,0 +1,316 @@
+==================================================
+;!TOC
+
+todo
+aim
+issues
+  naming
+meta
+in
+
+==================================================
+;TODO
+
+
+n-bytes
+  :hexdump
+
+rename printing procs?
+  pfoo0 - prints "[foo]"
+  pfoo prints "[foo]\n"
+ 
+
+hexdump
+
+replicate printing funcitons with printing to string
+  s prefix
+
+how about using them as a base for stdout printing funcitons?
+  make a hidden function that has a flag
+  how to call it
+    in terms of ifs
+  this kind of abstraction
+  what is the cost of such abstraction
+    it introduces a branch
+  this isn't a big deal for printing to the stdout
+    where most time is spent in a syscall
+  but when you write to a string
+    you have 2 branches instead of 1
+      1 for the loop
+      1 to determine whether to write to a string
+    and you have a function call
+    if it's not inlined it causee more delay
+
+
+decimal print
+unsigned
+then signed
+
+dynamic arrays
+  so I don't have to fuck with sizes so much
+  at(x) 
+
+
+malloc!
+
+bonus
+bignums
+
+tree editor
+  first circular buffer text editor
+    do you reall need it?
+    can you have small text buffers "
+generalization of dynamic arrays
+  like js objects
+how about enum for all types
+  heterogeneous arrays?
+  how did tarver call it?
+  many types, anyway
+
+how about dynamic wrappers for vars?
+
+write a VM
+  so you can do reflection and stuff
+  you can get numeric speed outside of VM
+how many years of slowdown is a VM
+  does it take me back to the 90's?
+but bro, you're basically using a setup from before VTs
+  
+
+hacker game where you are walking literally inside
+vm that runs you
+can it be made into mmorpg?
+  what about griefing
+    that's the part of fun
+    you get ungriefed spawn points
+    you are int your little room
+    but there are hundreds of people in your address space
+    physical space doesn't matter as much
+    you can turn it into anything you like
+    you can turn your display into anything you like
+    it's just mapped to you in the address space
+    and arbitrary space is rwx
+    you die when your thread crashes
+  client input is just a write to a specific address 
+    you get your address at random
+      maybe with some overlap avoidance between players
+    the whole framebuffer gets sent to you on each update
+      how large it is?
+
+
+the canvas thing
+  make it draw arbitrary memory
+  init just for opengl
+that way you don't need to have a per-pixel call
+you can just write to memory
+and draw that memory
+
+does my ds hack work on grok as well?
+hey! drawing arbitrary memory
+  
+
+
+==================================================
+;AIM
+
+write whatever cool you can write [sic.]
+
+rules:
+  only input is terminal in teletype mode
+  only output is terminal in teletype mode
+  you can only print ASCII characters and new lines
+  you can use an editor and a git repo
+    but it's a single branch
+
+
+
+
+
+==================================================
+;ISSUES
+
+
+
+========================================
+;-NAMING
+
+open
+
+p - p 
+
+
+==================================================
+;META
+
+no aim for now?
+
+friction
+  has done a part of plan step and started next one
+    didn't do decimal printing but started hexdump
+      solution - write more granular goals and rearrange
+      or maybe a "done?" thing?
+      that might be useful
+      I never do it like that
+      sounds like it would slow me down
+      but gotta try sometimes
+
+you can write prereqs top level
+if it's confusing what they are for
+you can create link a subtask!
+
+you can also try trying to do it eagerly
+  you can't leave the todo list without
+  linking all the subtasks you can to the top level task
+
+hey, it's a simple algorithm
+and you can be flexible with the top level goal
+but let's go lazy right now
+it's closer to our habitual flow
+
+hey!!!!!!!
+you can implement "go to the supertask"
+
+
+a task can have many supertasks!
+  it's many to many
+  can extend an editor to link it up like that?
+or maybe I can write a tree editor in c!
+
+but I'd have to write in C...
+or not, maybe I'll do it outside of this garden
+  meta meta - could use a special highlight that it needs to go
+  from here
+
+tags over categories!
+flat over nested
+categories must have a good answer for "why" question
+
+category annotation format
+[my schtick]
+purpose
+attitional data
+most important first
+simple
+
+==================================================
+;IN
+
+
+how about no printf?
+  printf sounds like cheating
+
+as little whitespace as possible
+but leave 2-tabs
+or no?
+  no, don't waste time configuring vim
+
+bugs:
+
+p('x')
+
+void p(char* s) {
+  for (;s!=0;s++) {
+    putchar(s); //putchar(*s)
+  }
+}
+
+  
+void p(char* s) {
+  for (;s!=0;s++) { //*s != 0
+    putchar(*s);
+  }
+}
+
+would be less bugs if I used arrays
+  rly?
+
+
+a = 1100 >> 3 = 1
+1100 - a << 3 = 100
+b = 100 >> 2 = 10
+
+how mmany itrs
+1 bit  - 1
+
+void pB(char n) {
+  char d[] = "0123456789ABCDEF";
+  char hi4 = n >> 4;
+  char lo4 = n - hi4;
+  pc(d[hi4]);
+  pc(d[lo4]);
+}
+
+wut?
+
+
+
+so "-" has higher precedence than "<<"
+  rly?
+    this gives different results:
+      char lo4 = n - (hi4 << 4);
+      char lo4 = n - hi4 << 4;
+    if they were not, they would be equal
+      why?
+        l8r
+    
+
+
+man search with -I
+
+minimalistic hexdump
+no fancy formatting
+you can think about it later
+  you have to deal with modulos anyway
+
+can those functions be rewritten using modulos
+
+
+
+tangent:
+how about using them as a base for stdout printing funcitons?
+  but you'd have to create a buffer
+in lisp you'd write a macro
+  isn't it too voodoo?
+  but it sounds like a great task for macro
+or you can do it with a function pointer that either prints to string
+or to stdout
+  but that would require making a closure with the string as argument
+    can't you do that?
+  simpler way
+    use a bunch of ifs
+    pass a flag and a buffer arg
+    make it a hidden function
+    make exposed functions with less args
+      is this some kind of known pattern?
+        don't know of any name
+        will have to call it somehow
+      is this currying?
+        nope
+          rly?
+          then try to do it
+          maybe you can do it witout closures
+          a sidequest - how much functional code
+          can you write without heap allocation
+            or stack tricks that simulate it
+            what stack tricks?
+              allocating an explicit stack of 
+            this is silly
+            Is this possible by standard?
+              is dynamic stack allocation possible by standard?
+              I remember being suprised about it 
+                was it c++?
+      it's a static closure
+        eeh, that's too inspecific
+          or maybe too ???
+          focusing on "how it does stuff" instead of "what for"
+          focusing on internals rather than purpose
+        I'd like to have a pragmatic name
+      adapter?
+
+inline funcitons in standard c?
+if they really work, you shouldn't be able to recurse them
+  linker error!
+  it actually complies
+    wait, warnings supressed
+      it has no warning even with Wall!
+
