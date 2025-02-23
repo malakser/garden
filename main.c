@@ -28,17 +28,18 @@ void ps(U1* s) {
   }
 }
 
-void pbl (U4 x) {
+void pt (U4 x) {
   pc(x ? '1' : '0');
 }
 
 void pb(U1 n) {
   for (U4 i=8; i>=0; i--) {
     U1 a = n >> i;
-    pbl(a);
+    pt(a);
     n -= a << i;
   }
 }
+
 
 void pn() {
   pc('\n');
@@ -88,6 +89,8 @@ void xxd(U1* buf, U4 len) {
   U4 line_n = len / sz + !!(len % sz);
   for (U4 i=0; i<line_n; i++) {
     U4 off = sz * i;
+    for (I4 j=3; j>=0; j--) pB(off >> 8*j);
+    ps(": ");
     U4 byte_n = min(len - off, sz);
     for (U4 j=0; j<byte_n; j++) {
       pB(buf[off + j]);
@@ -115,14 +118,20 @@ void megadump() {
   xxd("aaaa"-8*1024-4, 82*1024);
 }
 
+char* sss = 
+"(for (blah blah)\n"
+"  (blah (blah blah) blah)\n"
+"  (blah blah blah))";
+
+
 U4 main() {
-  megadump();
-  /*
+  //megadump();
   U1 foo[] = "1234567890abcdefghi";
   foo[10] = 10;
   xxd(foo, slen(foo));
-  */
-  pd(1337);
+  ///pd(1337);
+  //ps(sss);
+  //pX((U1) 0xABCD);
   pn();
 }
 

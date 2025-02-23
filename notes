@@ -4,24 +4,42 @@
 todo
 aim
 issues
+messy notes
   naming
 meta
+deliberation
 in
 
 ==================================================
 ;TODO
 
 
-n-bytes
-  :hexdump
-
 rename printing procs?
   pfoo0 - prints "[foo]"
   pfoo prints "[foo]\n"
+  how about no?
+
+come up with a printf?
+  state machine 
+
+formats
+  %u
+  %i
+  %q
+  %3q
+  %b
+  %B
+  %t
  
+pretty printing for indentation
+multiline 
 
 hexdump
 
+memory exploration
+  call stacks
+  structs
+    alignment, endianness
 
 replicate printing funcitons with printing to string
   s prefix
@@ -124,7 +142,7 @@ hey! drawing arbitrary memory
 ==================================================
 ;AIM
 
-write whatever cool you can write [sic.]
+Write whatever cool you can write [sic.]
 
 rules:
   only input is terminal in teletype mode
@@ -132,13 +150,25 @@ rules:
   you can only print ASCII characters and new lines
   you can use an editor and a git repo
     but it's a single branch
-
-
-
+  no preprocessor directives
 
 
 ==================================================
 ;ISSUES
+
+
+
+==================================================
+;MESSY NOTES
+
+what does it mean that the notes are messy?
+
+there's a zillion topics
+and I find myself switching focus between them
+contributing a little
+and getting disracted
+
+why is it a problem?
 
 
 
@@ -153,7 +183,6 @@ p - p
 ==================================================
 ;META
 
-no aim for now?
 
 friction
   has done a part of plan step and started next one
@@ -202,6 +231,8 @@ purpose
 attitional data
 most important first
 simple
+
+
 
 ==================================================
 ;IN
@@ -411,8 +442,10 @@ pattern matching, offsets
 maybe I can write the lisp before the dynamic array and all
 
 
+
 why xxd gives this weird output sometimes?
   find the exact input for which it gives it
+solved!
 
 test PB for the whole range of possible inputs
 ok, so it was problem with signed chars
@@ -423,3 +456,182 @@ ok, so it was problem with signed chars
 xxd that skips null rows
   it requires looking forward to work nice 
     I don't want n empty rows unitl it jumps to next block of data
+
+lambda calculus?
+
+graphics
+
+lisp interpreter for safer programming
+
+print bits for long?
+  hey, you can do it for many functions that you wrote so far
+
+I like low-level programming
+but I don't like low-level interfaces
+
+cons a b
+atom type b
+
+how about making them equal length
+
+or instead of using flags to check if something is atomic
+using the "type" pointer
+but then, the type pointer for cons cells needs to be well defined before you start consing
+  you can just pick the start of the heap
+but top of the structure gets consed last
+so you can do it with an explicit write, right?
+  kida finicky but it would work
+  and the gc and consp only have to check if the address is alright
+
+type properties
+fixed size
+dynamic size
+if it's dynamic size, you blah blah
+
+
+I can now look how structs look like in memory
+
+hey, maybe canvas looks bgr because of endianness
+what if I used a struct?
+
+alloc viewer
+  visualizing arbitrary datastructures
+
+how about atoms that store stuff
+  vibes well with this "permanent storage"
+
+lispy shell
+but nothing gets defined in lisp
+lisp serves only as a structure for composing expresions
+
+vm
+  segfaults impossible
+  can do multithreading
+  can generate/modify code
+    this can be done with normal interpreter as well
+
+how about giving the interpreter a stack but not letting it cons
+
+what function call actually does
+what happens if I miscast a function pointer
+to a function pointer with
+  1 argument more?
+  1 argument less?
+
+lisp
+  "context is consed on the call stack"
+    does it even make sense?
+      it does if it's only one cons cell
+  "return values are consed on call stack"
+    it can work, there's only one return value
+
+what about arguments?
+what if you do calloc
+what does it do?
+you don't have calloc
+but can you fake it?
+  you can't because you can't modify your registers
+  because that requires asm
+  and I don't want to deal with other people's ISAs
+
+load a file?
+it would be convenient to w
+
+single rom file
+  how would it work?
+
+how to see if the malloc works?
+
+IO streams abstraction?
+  reading char** lines
+
+
+gfx
+  anti-aliased ascii lines
+
+
+can do 3d l system plants and more
+scorpions
+where does it belong?
+  todo?
+  some place for ideas?
+
+parsing procedures that mutate a string pointer
+
+testing
+I have no asserts
+
+
+
+error handling
+
+methodology
+what looks like a solution
+what actually solves the problem
+the more you know about the problem
+the simpler your solutions
+
+
+how much memory do you need to print a bignum?
+how many digit does this number have?
+
+can you print an int without recursion?
+
+how calloc is implemented
+
+where should it go
+  outside of the garden
+
+how do you get it there
+
+
+what's cross platform anyway
+why would I want it?
+I'm gonna run it on this machine only, probably
+but I don't wanna learn x86 assembly
+but you have an x86 machine
+alternatively you can 
+
+
+the art of doing stupid
+  the thing I did with vdom
+"what's the dumbest way to solve the problem?"
+  least sophisticated
+
+disambiguating "simple"
+  low complexity
+  easy to do stuff
+
+
+the nuance here is
+intelligence and knowledge can 
+
+if those notes fell into the trash can
+what would I extract
+
+if it isn't a little bit misorganized,
+you spend too much time ordering it
+
+
+2d flight simulator thingy
+
+term fps
+maybe I should get a better term
+no, but you're using a ???
+
+maybe a turn based sailing game
+a roguelike
+you type in commands
+you give orders
+you're the captain!
+how about real time but command based
+
+xxd byte numbering
+how many digits should it be?
+  depending on the hexdump length?
+  but constant
+how does normal xxd implement it
+
+
+casting to a smaller type?
+  least significant bytes
