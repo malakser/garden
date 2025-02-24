@@ -3,21 +3,29 @@
 
 todo
 aim
-issues
+cando
+friction
 messy notes
   naming
 meta
-deliberation
+ideas
+bugs
+c language
+man
+hunks of text
+c runtime
+lisp
+math
+vm
+notsure
+out
 in
 
 ==================================================
 ;TODO
 
 
-rename printing procs?
-  pfoo0 - prints "[foo]"
-  pfoo prints "[foo]\n"
-  how about no?
+malloc!
 
 come up with a printf?
   state machine 
@@ -34,12 +42,28 @@ formats
 pretty printing for indentation
 multiline 
 
-hexdump
+rename printing procs?
+  pfoo0 - prints "[foo]"
+  pfoo prints "[foo]\n"
+  how about no?
+how about just copying the behavior
+was there any other reason for that kind of abstraction?
+  "reading char** lines"
+
 
 memory exploration
+  is constant space executable
   call stacks
   structs
     alignment, endianness
+
+
+write a VM
+  so you can do reflection and stuff
+  you can get numeric speed outside of VM
+how many years of slowdown is a VM
+  does it take me back to the 90's?
+but bro, you're basically using a setup from before VTs
 
 replicate printing funcitons with printing to string
   s prefix
@@ -80,7 +104,6 @@ dynamic arrays
   at(x) 
 
 
-malloc!
 
 bonus
 bignums
@@ -98,44 +121,6 @@ how about enum for all types
 
 how about dynamic wrappers for vars?
 
-write a VM
-  so you can do reflection and stuff
-  you can get numeric speed outside of VM
-how many years of slowdown is a VM
-  does it take me back to the 90's?
-but bro, you're basically using a setup from before VTs
-  
-
-hacker game where you are walking literally inside
-vm that runs you
-can it be made into mmorpg?
-  what about griefing
-    that's the part of fun
-    you get ungriefed spawn points
-    you are int your little room
-    but there are hundreds of people in your address space
-    physical space doesn't matter as much
-    you can turn it into anything you like
-    you can turn your display into anything you like
-    it's just mapped to you in the address space
-    and arbitrary space is rwx
-    you die when your thread crashes
-  client input is just a write to a specific address 
-    you get your address at random
-      maybe with some overlap avoidance between players
-    the whole framebuffer gets sent to you on each update
-      how large it is?
-
-
-the canvas thing
-  make it draw arbitrary memory
-  init just for opengl
-that way you don't need to have a per-pixel call
-you can just write to memory
-and draw that memory
-
-does my ds hack work on grok as well?
-hey! drawing arbitrary memory
   
 
 
@@ -153,10 +138,19 @@ rules:
   no preprocessor directives
 
 
+
 ==================================================
-;ISSUES
+;CANDO
 
 
+
+==================================================
+;FRICTION
+
+top of the todo list is meh
+  like a sidequest
+  how about making a "cando" list
+  to keep the todo list clean
 
 ==================================================
 ;MESSY NOTES
@@ -170,6 +164,8 @@ and getting disracted
 
 why is it a problem?
 
+maybe there are many ways they are messy
+and they can be handled separately
 
 
 ========================================
@@ -234,17 +230,30 @@ simple
 
 
 
+
 ==================================================
-;IN
+;IDEAS
 
+it would be nice if I had a "struct display"
+  prints field names and their values
 
-how about no printf?
-  printf sounds like cheating
+fixed point nums
+  easier to display
 
-as little whitespace as possible
-but leave 2-tabs
-or no?
-  no, don't waste time configuring vim
+trig functions
+
+can write a calculator
+
+pattern matching, offsets
+  finding constants from other constants
+  finding a sequence of bytes in another
+
+xxd that skips null rows
+  it requires looking forward to work nice 
+    I don't want n empty rows unitl it jumps to next block of data
+
+==================================================
+;BUGS
 
 bugs:
 
@@ -281,10 +290,23 @@ void pB(char n) {
   pc(d[hi4]);
   pc(d[lo4]);
 }
+probably because you bitshift signed char
 
-wut?
+
+why xxd gives this weird output sometimes?
+  find the exact input for which it gives it
+solved!
+  it was caused by bit-shifting signed integers
+  
+
+test PB for the whole range of possible inputs
+ok, so it was problem with signed chars
+  what happens if you bitshift signed numbers
+  especially negative numbers?
 
 
+==================================================
+;C LANGUAGE
 
 so "-" has higher precedence than "<<"
   rly?
@@ -294,21 +316,20 @@ so "-" has higher precedence than "<<"
     if they were not, they would be equal
       why?
         l8r
-    
 
+
+
+==================================================
+;MAN
 
 man search with -I
 
-minimalistic hexdump
-no fancy formatting
-you can think about it later
-  you have to deal with modulos anyway
-
-can those functions be rewritten using modulos
 
 
+==================================================
+;HUNKS OF TEXT
 
-tangent:
+tangent: (about string-printing functions)
 how about using them as a base for stdout printing funcitons?
   but you'd have to create a buffer
 in lisp you'd write a macro
@@ -349,6 +370,11 @@ or to stdout
         I'd like to have a pragmatic name
       adapter?
 
+
+
+==================================================
+;C RUNTIME
+
 inline funcitons in standard c?
 if they really work, you shouldn't be able to recurse them
   linker error!
@@ -356,37 +382,16 @@ if they really work, you shouldn't be able to recurse them
     wait, warnings supressed
       it has no warning even with Wall!
 
-weird dynamic allocation
-
-/*
-enum DynType {
-  INT,
-  DINT, //???
-}
-//^don't you need dynamic allocation for that?
 
 
-typedef struct {
-  int v;
-  int t;
-} Dint;
+==================================================
+;LISP
 
-union {
-}
-*/
-
-/*
-pbl(0x23 >> 0);
-pbl(0x23 >> 1);
-pbl(0x23 >> 2);
-pbl(0x23 >> 3);
-pbl(0x23 >> 4);
-this might generate mask
-*/
-
-
-it would be nice if I had a "struct display"
-
+lisp interpreter for safer and more powerful programming
+  safer
+    no seggies
+  more powerful
+    proper macros
 
 lisp without GC?
   no eval inside
@@ -413,20 +418,14 @@ where does the result go?
   it gets printed from the transient heap
 
 
-
-fixed point nums
-  easier to display
-
-trig functions
-
-can write a calculator
-
-does the vm have interrupts?
-first try without
-
 types inside that lisp?
   sure doozie
   but first do them in c
+
+
+
+==================================================
+;MATH
 
 (n / a + m / a) != (n + m) / a?
 prove it
@@ -435,33 +434,73 @@ prove it
   (1 + 1) / 2 = 1
 QED
 
-pattern matching, offsets
-  finding constants from other constants
-  finding a sequence of bytes in another
+
+==================================================
+;VM
+
+does the vm have interrupts?
+first try without
+
+
+==================================================
+;NOTSURE
+
+weird dynamic allocation
+  what for?
+
+/*
+enum DynType {
+  INT,
+  DINT, //???
+}
+//^don't you need dynamic allocation for that?
+
+
+typedef struct {
+  int v;
+  int t;
+} Dint;
+
+union {
+}
+*/
+
 
 maybe I can write the lisp before the dynamic array and all
+  well you can, but should you?
 
 
 
-why xxd gives this weird output sometimes?
-  find the exact input for which it gives it
-solved!
+==================================================
+;OUT
 
-test PB for the whole range of possible inputs
-ok, so it was problem with signed chars
-  what happens if you bitshift signed numbers
-  especially negative numbers?
+hacker game where you are walking literally inside
+vm that runs you
+can it be made into mmorpg?
+  what about griefing
+    that's the part of fun
+    you get ungriefed spawn points
+    you are int your little room
+    but there are hundreds of people in your address space
+    physical space doesn't matter as much
+    you can turn it into anything you like
+    you can turn your display into anything you like
+    it's just mapped to you in the address space
+    and arbitrary space is rwx
+    you die when your thread crashes
+  client input is just a write to a specific address 
+    you get your address at random
+      maybe with some overlap avoidance between players
+    the whole framebuffer gets sent to you on each update
+      how large it is?
 
 
-xxd that skips null rows
-  it requires looking forward to work nice 
-    I don't want n empty rows unitl it jumps to next block of data
+==================================================
+;IN
 
 lambda calculus?
 
 graphics
-
-lisp interpreter for safer programming
 
 print bits for long?
   hey, you can do it for many functions that you wrote so far
@@ -635,3 +674,40 @@ how does normal xxd implement it
 
 casting to a smaller type?
   least significant bytes
+
+
+xxd non-empty
+
+
+interesting thing when you dump callstack
+but why does it segfault in the middle of meaningful text?
+
+idea
+  extracting env variables
+  what for?
+    for the lulz?
+
+checking if you can execute code in constants space
+
+checking if functions are defined in the same block as
+global constants
+
+
+
+
+
+
+char a[] = "asdfghjk";
+int foo() {
+  return 1;
+}
+char b[] = "zxcvbnmm";
+
+
+U4 main() {
+  xxd(a-0x50, 0xA0);
+}
+
+what are those weird bytes that change each time I run them
+  they're always in the same place
+

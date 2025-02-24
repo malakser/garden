@@ -1,4 +1,4 @@
-int putchar(char c);
+int putchar(int c);
 int getchar();
 
 typedef signed char I1;
@@ -12,6 +12,7 @@ typedef unsigned long U8;
 
 
 U1 heap[0xFFFF];
+void* heap_last = heap;
 
 
 void pc(U1 c) {
@@ -28,7 +29,7 @@ void ps(U1* s) {
   }
 }
 
-void pt (U4 x) {
+void pt(U4 x) {
   pc(x ? '1' : '0');
 }
 
@@ -123,16 +124,25 @@ char* sss =
 "  (blah (blah blah) blah)\n"
 "  (blah blah blah))";
 
+void scpy(U1* src, U1* dst) {
+  U4 i = 0;
+  for (; src[i]; i++) dst[i] = src[i];
+  dst[i] = 0;
+}
+
+
+char a[] = "asdfghjk";
+int foo() {
+  return 1;
+}
+char b[] = "zxcvbnmm";
+
+
 
 U4 main() {
-  //megadump();
-  U1 foo[] = "1234567890abcdefghi";
-  foo[10] = 10;
-  xxd(foo, slen(foo));
-  ///pd(1337);
-  //ps(sss);
-  //pX((U1) 0xABCD);
+  xxd(a-0x50, 0xA0);
   pn();
+  xxd(foo-0x50, 0xA0);
 }
 
 
