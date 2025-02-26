@@ -24,6 +24,11 @@ in
 ==================================================
 ;TODO
 
+play with function pointers
+check if you can copy a function on stack and run it
+  segfault happens
+check what happens if you misapply with different number
+of arguments
 
 malloc!
 
@@ -150,7 +155,11 @@ rules:
 top of the todo list is meh
   like a sidequest
   how about making a "cando" list
+    for possible directions of exploration
   to keep the todo list clean
+  todo is more stuff that has to be done to make stuff happen
+umm...
+is there really that big of a difference
 
 ==================================================
 ;MESSY NOTES
@@ -711,3 +720,18 @@ U4 main() {
 what are those weird bytes that change each time I run them
   they're always in the same place
 
+what's a trampoline anyway?
+
+
+organization
+  all organization problems are
+  stuff getting in the way of action
+
+how does termios work
+
+can I dump stack frames precisely
+what's the bottom stack frame?
+
+cheat engine with diffs
+
+gxxd

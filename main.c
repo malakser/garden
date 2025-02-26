@@ -108,6 +108,29 @@ void xxd(U1* buf, U4 len) {
   }
 }
 
+void gxxd(U1* buf, U4 len) {
+  U4 sz = 16;
+  U4 line_n = len / sz + !!(len % sz);
+  for (U4 i=0; i<line_n; i++) {
+    U4 off = sz * i;
+    for (I4 j=7; j>=0; j--) pB((U8) buf + off >> 8*j);
+    ps(": ");
+    U4 byte_n = min(len - off, sz);
+    for (U4 j=0; j<byte_n; j++) {
+      pB(buf[off + j]);
+      if (j % 2 == 1) pc(' ');
+    }
+    U4 pad_n = sz/2*5 - (byte_n * 2) - (byte_n / 2) + 1;
+    for (U4 j=0; j<pad_n; j++) pc(' ');
+    for (U4 j=0; j<byte_n; j++) {
+      U1 c = buf[off + j];
+      if (c >= ' ' && c <= '~') pc(c);
+      else pc('.');
+    }
+    pc('\n');
+  }
+}
+
 U4 slen(U1* s) {
   U4 i = 0;
   for (; s[i]; i++);
@@ -130,9 +153,14 @@ void scpy(U1* src, U1* dst) {
   dst[i] = 0;
 }
 
+void ncpy(void* src, void* dst, U4 n) {
+  for (U4 i=0; i<n; i++) ((U1*) dst)[i] = ((U1*) src)[i];
+}
+
 
 char a[] = "asdfghjk";
 int foo() {
+  ps("foo\n");
   return 1;
 }
 char b[] = "zxcvbnmm";
@@ -140,9 +168,11 @@ char b[] = "zxcvbnmm";
 
 
 U4 main() {
-  xxd(a-0x50, 0xA0);
-  pn();
-  xxd(foo-0x50, 0xA0);
+  U1 bar[0x80];
+  ncpy(foo, bar, 0x80);
+  int (*f)() = foo;
+  gxxd(bar, 0x80);
+  f();
 }
 
 
